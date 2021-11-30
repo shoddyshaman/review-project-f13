@@ -37,6 +37,24 @@ app.post('/api/movies',(req,res) => {
     res.status(200).send(movies)
 })
 
+app.put('/api/movies/:id',(req,res) => {
+    // need an identifier to locate the object in the array and then change the title
+    const {id} = req.params
+    // console.log(id)
+    const {newTitle} = req.body
+    const index = movies.findIndex(m => +id === m.id)
+    // console.log(index)
+    movies[index].title = newTitle
+    res.status(200).send(movies)
+})
+
+app.delete('/api/movies/:id',(req,res) => {
+    const {id} = req.params
+    const index = movies.findIndex(m => +id === m.id)
+    movies.splice(index,1)
+    res.status(200).send(movies)
+})
+
 
 //listen to our server
 app.listen(4040,() => console.log(`server running on port 4040`))
